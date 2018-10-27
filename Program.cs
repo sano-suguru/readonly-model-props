@@ -18,11 +18,25 @@ namespace readonly_model_props {
         }
       }
 
+      Console.WriteLine("* ==========CREATE========== *");
+      using (var context = new InMemoryDbContext()) {
+        var newbook = new Book(
+          id: 4,
+          title: "C#プログラミングのイディオム/定石&パターン",
+          author: "出井 秀行"
+        );
+        context.Books.Add(newbook);
+
+        foreach (var book in context.Books) {
+          Console.WriteLine($"{book.Id} {book.Title} {book.Author}");
+        }
+      }
+
       Console.WriteLine("* ==========UPDATE========== *");
       using (var context = new InMemoryDbContext()) {
         var target = context.Books
           .AsNoTracking()
-          .Single(b => b.Id == 1);
+          .Single(b => b.Id == 3);
         context.Books.Update(
           new Book(
             id: target.Id,
@@ -32,7 +46,7 @@ namespace readonly_model_props {
         );
         context.SaveChanges();
 
-        var updated = context.Books.AsNoTracking().Single(b => b.Id == 1);
+        var updated = context.Books.AsNoTracking().Single(b => b.Id == 3);
         Console.WriteLine($"{updated.Id} {updated.Title} {updated.Author}");
       }
     }
