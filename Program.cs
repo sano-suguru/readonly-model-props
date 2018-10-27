@@ -28,7 +28,7 @@ namespace readonly_model_props {
         context.Books.Add(newbook);
         context.SaveChanges();
 
-        foreach (var book in context.Books) {
+        foreach (var book in context.Books.AsNoTracking()) {
           Console.WriteLine($"{book.Id} {book.Title} {book.Author}");
         }
       }
