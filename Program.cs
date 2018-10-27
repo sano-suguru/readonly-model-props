@@ -53,7 +53,7 @@ namespace readonly_model_props {
 
       Console.WriteLine("* ==========DELETE========== *");
       using (var context = new InMemoryDbContext()) {
-        var target = context.Books.Single(b => b.Id == 1);
+        var target = context.Books.AsNoTracking().Single(b => b.Id == 1);
         context.Books.Remove(target);
         context.SaveChanges();
 
