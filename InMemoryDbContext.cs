@@ -4,8 +4,6 @@ namespace readonly_model_props {
   class InMemoryDbContext : DbContext {
     public DbSet<Book> Books { get; set; }
 
-    public InMemoryDbContext() { }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
       optionsBuilder.UseInMemoryDatabase(databaseName: "InMemoryDatabase");
 
