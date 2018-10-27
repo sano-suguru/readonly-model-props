@@ -49,6 +49,17 @@ namespace readonly_model_props {
         var updated = context.Books.AsNoTracking().Single(b => b.Id == 3);
         Console.WriteLine($"{updated.Id} {updated.Title} {updated.Author}");
       }
+
+      Console.WriteLine("* ==========DELETE========== *");
+      using (var context = new InMemoryDbContext()) {
+        var target = context.Books.Single(b => b.Id == 1);
+        context.Books.Remove(target);
+        context.SaveChanges();
+
+        foreach (var book in context.Books.AsNoTracking()) {
+          Console.WriteLine($"{book.Id} {book.Title} {book.Author}");
+        }
+      }
     }
   }
 }
