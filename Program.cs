@@ -26,6 +26,7 @@ namespace readonly_model_props {
           author: "出井 秀行"
         );
         context.Books.Add(newbook);
+        context.SaveChanges();
 
         foreach (var book in context.Books) {
           Console.WriteLine($"{book.Id} {book.Title} {book.Author}");
