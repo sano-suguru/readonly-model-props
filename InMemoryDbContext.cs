@@ -1,8 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace readonly_model_props {
-  class InMemoryDbContext {
+  class InMemoryDbContext : DbContext {
+    public DbSet<Book> Books { get; set; }
+
+    public InMemoryDbContext(DbContextOptions<InMemoryDbContext> options)
+      : base(options) { }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
+      optionsBuilder.UseInMemoryDatabase(databaseName: "InMemoryDatabase");
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+      modelBuilder.Entity<Book>().HasData(
+        new Book(id: 1, title: "Flutter入門", author: "掌田 津耶乃"),
+        new Book(id: 2, title: "Nuxt.jsビギナーズガイド", author: "花谷 拓磨"),
+        new Book(id: 3, title: "IntelliJ IDEAハンズオン", author: "	山本 裕介")
+      );
   }
 }
