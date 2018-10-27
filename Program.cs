@@ -5,10 +5,12 @@ using System.Linq;
 namespace readonly_model_props {
   class Program {
     static void Main(string[] args) {
+      /* DB 生成 */
       using (var context = new InMemoryDbContext()) {
         context.Database.EnsureCreated();
       }
 
+      Console.WriteLine("* ==========READ========== *");
       using (var context = new InMemoryDbContext()) {
         var books = context.Books.AsEnumerable();
         foreach (var book in books) {
@@ -16,6 +18,7 @@ namespace readonly_model_props {
         }
       }
 
+      Console.WriteLine("* ==========UPDATE========== *");
       using (var context = new InMemoryDbContext()) {
         var target = context.Books
           .AsNoTracking()
