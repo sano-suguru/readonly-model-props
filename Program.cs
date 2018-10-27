@@ -12,7 +12,7 @@ namespace readonly_model_props {
 
       Console.WriteLine("* ==========READ========== *");
       using (var context = new InMemoryDbContext()) {
-        var books = context.Books.AsEnumerable();
+        var books = context.Books.AsNoTracking().AsEnumerable();
         foreach (var book in books) {
           Console.WriteLine($"{book.Id} {book.Title} {book.Author}");
         }
